@@ -43,12 +43,38 @@ void avoidMax(float *score)
     float max= *score，min= *score;
     //寻找最高分最低分
     for (i=0; i<num; i++) {
-        
-        <#statements#>
+        if( *(score+1)>max)
+            max = *(score+i);
+        else if(*(score+i)<min);
+        min = *(score+i);
+    }
+    //将最高分，最低分设置为0
+    for (i=0; i<num; i++) {
+        if(num>2)
+        {
+            if(*(score+i)==max || *(score+i)==min)
+            {
+                *(score+i)=0;
+            }
+        }
+        sum +=  *(score+i);
+    }
+    if(num>2)
+    {
+        num=num-2;
     }
 }
 int main(int argc, const char * argv[]) {
+    char key;
+    while (key!='N'&&key!='n') {
+        
+        intputSc();
+        printf("按任意键继续下一位选手成绩计算，退出请选择N:")；
+        fflish(stdin);
+        key = getchar();
+    }
+    
     // insert code here...
-    std::cout << "Hello, World!\n";
+    //std::cout << "Hello, World!\n";
     return 0;
 }
