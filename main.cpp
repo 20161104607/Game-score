@@ -69,7 +69,7 @@ int main(int argc, const char * argv[]) {
     while (key!='N'&&key!='n') {
         
         intputSc();
-        printf("按任意键继续下一位选手成绩计算，退出请选择N:")；
+        printf("按任意键继续下一位选手成绩计算，退出请选择N:");
         fflish(stdin);
         key = getchar();
     }
@@ -78,3 +78,4 @@ int main(int argc, const char * argv[]) {
     //std::cout << "Hello, World!\n";
     return 0;
 }
+
