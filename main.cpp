@@ -6,76 +6,64 @@
 //  Copyright © 2018年 20161104607. All rights reserved.
 //
 
-#include <stdio.h>
-#include<stdlib.h>
-float score[99];// 成绩数据
-int num=0;
-float sum=0;
-
-
-void intputSc()
-{
-    if(num==0)
-    {
-        printf(" 请您输入评委数目:");
-        scanf("%d",&num);
+#include<iostream>
+#include<fstream>
+#include<string>
+using namespace std;
+struct Student{
+    string name;
+    int score[7];
+    int sum;
+};
+int main(){
+    //评委评分 最高最低 取平均分
+    int n;
+    cin>>n;
+    Student stu[n];
+    for(int i=0;i<n;i++){
+        cin>>stu[i].name;
+        for(int j=0;j<7;j++){
+            cin>>stu[i].score[j];
+        }
+        int max=stu[i].score[0],min=stu[i].score[0];
+        for(int j=0;j<7;j++){
+            if(stu[i].score[j]>max)max=stu[i].score[j];
+            if(stu[i].score[j]<min)min=stu[i].score[j];
+        }
+        for(int j=0;j<7;j++){
+            stu[i].sum+=stu[i].score[j];
+        }
+        stu[i].sum=stu[i].sum-max-min;
+        cout<<"sum="<<stu[i].sum<<endl;
     }
-    int i=0;
-    printf("请您输入％d位评委评分:\n",num);
-    for (i=0;i<num ; i++) {
-        scanf("%f",&score[i]);
-        
-    }
-    //去掉最高分和最低分
-    avoidMax(score);
-    //输出结果
-    printf("平均分:%.2f\n",sum/num);
-    // 回复数目
-    if(num>2)
-    {
-        num = num+2;
-    }
-}
-//成绩处理模块儿
-void avoidMax(float *score)
-{
-    int i=0;
-    float max= *score，min= *score;
-    //寻找最高分最低分
-    for (i=0; i<num; i++) {
-        if( *(score+1)>max)
-            max = *(score+i);
-        else if(*(score+i)<min);
-        min = *(score+i);
-    }
-    //将最高分，最低分设置为0
-    for (i=0; i<num; i++) {
-        if(num>2)
-        {
-            if(*(score+i)==max || *(score+i)==min)
-            {
-                *(score+i)=0;
+    for(int i=0;i<n-1;i++){
+        for(int j=i;j<n;j++){
+            if(stu[i].sum<stu[j].sum){
+                Student temp;
+                temp=stu[i];
+                stu[i]=stu[j];
+                stu[j]=temp;
             }
         }
-        sum +=  *(score+i);
     }
-    if(num>2)
-    {
-        num=num-2;
-    }
-}
-int main(int argc, const char * argv[]) {
-    char key;
-    while (key!='N'&&key!='n') {
-        
-        intputSc();
-        printf("按任意键继续下一位选手成绩计算，退出请选择N:");
-        fflish(stdin);
-        key = getchar();
+    for(int i=0;i<n;i++){
+        cout<<stu[i].name<<' '<<stu[i].sum<<endl;
     }
     
-    // insert code here...
-    //std::cout << "Hello, World!\n";
+    
+    //读取.csv文件
+
+    string value;
+    char filename[256];
+    cout<<"请输入文件名"<<endl;
+    cin>>filename;
+    ifstream infile(filename);
+    while(infile.good()){
+        //.csv文件用","作为分隔符
+        getline(infile,value,',');
+        cout<<value<<endl;  
+    }
+    
+    
     return 0;
 }
-
